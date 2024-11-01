@@ -10,8 +10,19 @@ This project is a command-line tool for compressing and decompressing text files
 
 ## Project Structure
 
-
-tiny_file.exe/ ├── include/ # Header files ├── src/ # Source files │ ├── main.c # CLI entry point │ ├── huffman/ # Huffman compression and decompression │ ├── rle/ # RLE compression and decompression │ ├── file_io/ # File handling functions │ └── utils/ # Utility functions ├── libft/ # Submodule for libft (with printf and get_next_line) ├── _obj/ # Compiled object files (auto-generated) ├── Makefile # Makefile to compile and link the project └── README.md # Project description and instructions
+```plaintext
+tiny_file.exe/
+├── include/                     # Header files
+├── src/                         # Source files
+│   ├── main.c                   # CLI entry point
+│   ├── huffman/                 # Huffman compression and decompression
+│   ├── rle/                     # RLE compression and decompression
+│   ├── file_io/                 # File handling functions
+│   └── utils/                   # Utility functions
+├── libft/                       # Submodule for libft (with printf and get_next_line)
+├── _obj/                        # Compiled object files (auto-generated)
+├── Makefile                     # Makefile to compile and link the project
+└── README.md                    # Project description and instructions
 
 
 ## Getting Started
