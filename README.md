@@ -23,7 +23,7 @@ tiny_file.exe/
 ├── _obj/                        # Compiled object files (auto-generated)
 ├── Makefile                     # Makefile to compile and link the project
 └── README.md                    # Project description and instructions
-
+---
 
 ## Getting Started
 
