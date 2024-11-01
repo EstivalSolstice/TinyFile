@@ -10,6 +10,7 @@ This project is a command-line tool for compressing and decompressing text files
 
 ## Project Structure
 
+```markdown
 tiny_file.exe/
 ├── include/                     # Header files
 ├── src/                         # Source files
