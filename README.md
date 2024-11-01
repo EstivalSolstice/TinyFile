@@ -3,13 +3,13 @@
 This project is a command-line tool for compressing and decompressing text files using two algorithms: Huffman Coding and Run-Length Encoding (RLE). The tool is designed to reduce file sizes by encoding data efficiently and then restoring it to its original form.
 
 ## Features
+
 - **Huffman Compression**: A binary-tree-based algorithm that compresses data based on character frequencies.
 - **Run-Length Encoding (RLE)**: A simpler method for compressing sequences of repeated characters.
 - **File Handling**: Reads input files and writes compressed data to custom-formatted files.
 
 ## Project Structure
 
-```plaintext
 tiny_file.exe/
 ├── include/                     # Header files
 ├── src/                         # Source files
