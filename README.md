@@ -34,28 +34,23 @@ tiny_file.exe/
 ### Setup Instructions
 
 1. **Clone the Repository**:
-   ```bash
+   ```bash'''
    git clone https://github.com/EstivalSolstice/TinyFile.git
    cd tiny_file.exe
-
----
 
 2. **Initialize Submodules**:
    ```bash
    git submodule update --init --recursive
 
----
-
-3. **Compile the project
+3. **Compile the project**
 	```bash
 	make
 
----
-
-4. **Cleaning up
+4. **Cleaning up**
 	```bash
 	make fclean
 
 ---
 
-##This project is licensed under the MIT License.
+```markdown
+## This project is licensed under the MIT License.
