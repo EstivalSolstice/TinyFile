@@ -10,7 +10,7 @@ This project is a command-line tool for compressing and decompressing text files
 
 ## Project Structure
 
-
+```plaintext
 tiny_file.exe/
 ├── include/                     # Header files
 ├── src/                         # Source files
@@ -23,7 +23,7 @@ tiny_file.exe/
 ├── _obj/                        # Compiled object files (auto-generated)
 ├── Makefile                     # Makefile to compile and link the project
 └── README.md                    # Project description and instructions
-
+```
 
 ## Getting Started
 
