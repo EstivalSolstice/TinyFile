@@ -29,6 +29,8 @@ tiny_file.exe/
 - **Git**: To clone the repository and submodules.
 - **C Compiler**: GCC or Clang to build the project.
 
+---
+
 ### Setup Instructions
 
 1. **Clone the Repository**:
@@ -36,17 +38,24 @@ tiny_file.exe/
    git clone https://github.com/EstivalSolstice/TinyFile.git
    cd tiny_file.exe
 
+---
+
 2. **Initialize Submodules**:
    ```bash
    git submodule update --init --recursive
+
+---
 
 3. **Compile the project
 	```bash
 	make
 
+---
+
 4. **Cleaning up
 	```bash
 	make fclean
 
-########## This project is licensed under the MIT License. ##########
 ---
+
+##This project is licensed under the MIT License.
