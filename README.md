@@ -34,7 +34,7 @@ tiny_file.exe/
 ### Setup Instructions
 
 1. **Clone the Repository**:
-   ```bash'''
+   ```bash
    git clone https://github.com/EstivalSolstice/TinyFile.git
    cd tiny_file.exe
 
