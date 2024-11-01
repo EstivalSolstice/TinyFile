@@ -25,12 +25,13 @@ tiny_file.exe/
 └── README.md                    # Project description and instructions
 ```
 
+---
+
 ## Getting Started
 
 ### Prerequisites
 - **Git**: To clone the repository and submodules.
 - **C Compiler**: GCC or Clang to build the project.
-
 
 
 ### Setup Instructions
