@@ -90,6 +90,7 @@ tiny_file.exe/
 
 ```markdown
 Each algorithm has strengths suited for different types of data:
+```
 
 ### Huffman
 
