@@ -92,25 +92,25 @@ Each algorithm has strengths suited for different types of data:
 
 ### Huffman
 
-- **Directory**: src/huffman/
+- **Directory**: `src/huffman/`
 - **Description**: Huffman coding is a widely used method for entropy-based compression. It assigns shorter codes to more frequent symbols, achieving optimal compression for known, fixed-frequency data.
 - **Best For**: Data with skewed symbol distributions.
 
 ### ANS (Asymmetric Numeral System)
 
-- **Directory**: src/ans/
+- **Directory**: `src/ans/`
 - **Description**: ANS is an efficient entropy coding algorithm that adapts well to skewed distributions and is often faster than traditional arithmetic coding.
 - **Best For**: High-speed compression on data with variable frequencies.
 
 ### LZ77
 
-- **Directory**: src/lz77/
+- **Directory**: `src/lz77/`
 - **Description**: LZ77 is a dictionary-based compression technique that replaces repeated sequences with references to earlier occurrences. It’s ideal for data with repeated phrases or patterns.
 - **Best For**: Text files, logs, and structured data with redundancy.
 
 ### RLE (Run-Length Encoding)
 
-- **Directory**: src/rle/
+- **Directory**: `src/rle/`
 - **Description**: RLE is a simple compression technique that encodes consecutive identical symbols as a single symbol and count. It’s especially effective on data with long runs of repeated symbols.
 - **Best For**: Images, raw data, or simple graphical data with repetitive symbols.
 ---
@@ -120,5 +120,4 @@ Each algorithm has strengths suited for different types of data:
 ---
 ## Acknowledgments
 
-```markdown
 This project was inspired by common data compression techniques and aims to provide a practical learning experience in implementing efficient compression algorithms.
