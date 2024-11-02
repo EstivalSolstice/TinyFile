@@ -88,9 +88,7 @@ tiny_file.exe/
 
 ## Compression Algorithms
 
-```markdown
 Each algorithm has strengths suited for different types of data:
-```
 
 ### Huffman
 
