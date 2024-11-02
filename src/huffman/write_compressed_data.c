@@ -22,28 +22,35 @@ void	process_symbol_code(FILE *output, char *symbol_code,
 	}
 }
 
-void write_compressed_data(FILE *output, const char *text, long length, char **code_table, int *valid_bits) {
+void write_compressed_data(FILE *output, const char *text, long length, char **code_table, int *valid_bits)
+{
     unsigned char buffer = 0;
     int buffer_size = 0;
 
-    for (long i = 0; i < length; i++) {
+    for (long i = 0; i < length; i++)
+	{
         const char *symbol_code = code_table[(unsigned char)text[i]];
-        for (int k = 0; symbol_code[k] != '\0'; k++) {
+        for (int k = 0; symbol_code[k] != '\0'; k++)
+		{
             int bit = symbol_code[k] - '0';
             buffer = (buffer << 1) | bit;
             buffer_size++;
-            if (buffer_size == 8) {
+            if (buffer_size == 8)
+			{
                 fputc(buffer, output);
                 buffer = 0;
                 buffer_size = 0;
             }
         }
     }
-    if (buffer_size > 0) {
+    if (buffer_size > 0)
+	{
         buffer <<= (8 - buffer_size);
         fputc(buffer, output);
         *valid_bits = buffer_size;
-    } else {
+    }
+	else
+	{
         *valid_bits = 8;
     }
 }

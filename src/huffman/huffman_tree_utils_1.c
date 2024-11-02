@@ -75,7 +75,8 @@ void insert_node(PriorityQueue *queue, void *node)
 }
 
 
-int compare_huffman_nodes(const void *a, const void *b) {
+int compare_huffman_nodes(const void *a, const void *b)
+{
     const TreeNode *node_a = (const TreeNode *)a;
     const TreeNode *node_b = (const TreeNode *)b;
     const HuffmanData *data_a = (const HuffmanData *)node_a->data;
@@ -83,8 +84,10 @@ int compare_huffman_nodes(const void *a, const void *b) {
     return data_a->frequency - data_b->frequency;
 }
 
-void free_priority_queue(PriorityQueue *queue) {
-    if (!queue) return;
+void free_priority_queue(PriorityQueue *queue)
+{
+    if (!queue)
+		return ;
 
     free(queue->nodes);
     free(queue);

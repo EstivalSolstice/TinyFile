@@ -44,7 +44,6 @@ static int build_huffman_codes(char *text, char **code_table, TreeNode **root)
     generate_codes(*root, code_buffer, 0, code_table);
     return (1);
 }
-
 static int	open_output_file(const char *output_file, FILE **output)
 {
 	*output = fopen(output_file, "wb");
@@ -56,15 +55,8 @@ static int	open_output_file(const char *output_file, FILE **output)
 	return (1);
 }
 
-// static void	cleanup_compression(char *text, HuffmanNode *root,
-// 		char **code_table)
-// {
-// 	free(text);
-// 	free_code_table(code_table);
-// 	free_huffman_tree(root);
-// }
-
-void huffman_compress(const char *input_file, const char *output_file) {
+void huffman_compress(const char *input_file, const char *output_file)
+{
     char *text;
     long length;
     char *code_table[256] = {0};
@@ -77,14 +69,16 @@ void huffman_compress(const char *input_file, const char *output_file) {
     int frequency_table[256];
     count_frequencies(text, frequency_table);
     root = build_huffman_tree(frequency_table);
-    if (root == NULL) {
+    if (root == NULL)
+	{
         free(text);
         return;
     }
     char code_buffer[256];
     generate_codes(root, code_buffer, 0, code_table);
     output = fopen(output_file, "wb");
-    if (output == NULL) {
+    if (output == NULL)
+	{
         perror("Failed to open output file");
         cleanup_compression(text, root, code_table);
         return;
