@@ -60,23 +60,6 @@ TreeNode *build_huffman_tree(int *frequency_table)
     return (root);
 }
 
-
-void free_tree(TreeNode *root, void (*free_data)(void *))
-{
-    if (root == NULL)
-        return ;
-    free_tree(root->left, free_data);
-    free_tree(root->right, free_data);
-    if (free_data)
-        free_data(root->data);
-    free(root);
-}
-
-void free_huffman_data(void *data)
-{
-    free(data);
-}
-
 TreeNode *read_huffman_tree(FILE *file)
 {
     int bit = fgetc(file);

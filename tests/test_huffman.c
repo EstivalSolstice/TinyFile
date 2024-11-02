@@ -1,4 +1,5 @@
 #include "huffman.h"
+#include "utils.h"
 
 // Function to print the Huffman tree for debugging
 void print_tree(TreeNode *node, int depth) {

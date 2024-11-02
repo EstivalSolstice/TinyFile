@@ -1,4 +1,4 @@
-#include "huffman.h"
+#include "utils.h"
 
 void	process_symbol_code(FILE *output, char *symbol_code,
 		unsigned char *buffer, int *buffer_size)
@@ -54,4 +54,3 @@ void write_compressed_data(FILE *output, const char *text, long length, char **c
         *valid_bits = 8;
     }
 }
-

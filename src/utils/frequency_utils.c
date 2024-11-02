@@ -1,4 +1,4 @@
-#include "huffman.h"
+#include "utils.h"
 
 void count_frequencies(const char *text, int *frequency_table)
 {

@@ -1,4 +1,4 @@
-#include "huffman.h"
+#include "utils.h"
 
 void free_code_table(char **code_table)
 {

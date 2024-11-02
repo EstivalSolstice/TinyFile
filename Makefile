@@ -23,19 +23,19 @@ vpath %.c $(SRC_DIRS)
 ################################################################################
 
 SRCS :=	src/main.c \
-       	src/huffman/count_frequencies.c \
 		src/huffman/decompress_data.c \
-		src/huffman/free_code_table.c \
 		src/huffman/generate_codes.c \
 		src/huffman/huffman_compress.c \
 		src/huffman/huffman_decompress.c \
-		src/huffman/huffman_tree_utils_1.c \
-		src/huffman/huffman_tree_utils_2.c \
-		src/huffman/write_compressed_data.c \
+		src/huffman/huffman_tree_utils.c \
 		src/huffman/write_huffman_tree.c \
+		utils/compression_utils.c \
+		utils/frequency_utils.c \
+		utils/memory_utils.c \
+		utils/priority_queue_utils.c \
+		utils/tree_utils.c \
        	src/rle/rle.c \
-       	src/file_io/file_io.c \
-       	src/utils/utils.c \
+       	src/file_io/file_io.c 
 
 TEST_SRCS := tests/test_huffman.c
 LIBFT_SRCS := libft/*.c libft/printf/*.c libft/get_next_line/get_next_line.c libft/get_next_line/get_next_line_utils.c

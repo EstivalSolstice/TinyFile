@@ -1,16 +1,4 @@
-#include "huffman.h"
-
-TreeNode *create_tree_node(void *data) {
-    TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
-    if (node == NULL) {
-        perror("Failed to allocate memory for TreeNode");
-        exit(EXIT_FAILURE);
-    }
-    node->data = data;
-    node->left = NULL;
-    node->right = NULL;
-    return node;
-}
+#include "utils.h"
 
 PriorityQueue *create_priority_queue(int capacity, int (*compare)(const void *, const void *)) {
     PriorityQueue *queue = (PriorityQueue *)malloc(sizeof(PriorityQueue));
@@ -30,14 +18,25 @@ PriorityQueue *create_priority_queue(int capacity, int (*compare)(const void *, 
     return queue;
 }
 
-
-void swap_nodes(void **a, void **b)
+void free_priority_queue(PriorityQueue *queue)
 {
-    void *temp;
+    if (!queue)
+		return ;
 
-    temp = *a;
-    *a = *b;
-    *b = temp;
+    free(queue->nodes);
+    free(queue);
+}
+void insert_node(PriorityQueue *queue, void *node)
+{
+    int i;
+
+    i = queue->size++;
+    queue->nodes[i] = node;
+    while (i && queue->compare(queue->nodes[i], queue->nodes[(i - 1) / 2]) < 0)
+    {
+        swap_nodes(&queue->nodes[i], &queue->nodes[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
 }
 
 void heapify(PriorityQueue *queue, int index)
@@ -60,21 +59,14 @@ void heapify(PriorityQueue *queue, int index)
         heapify(queue, smallest);
     }
 }
-
-void insert_node(PriorityQueue *queue, void *node)
+void swap_nodes(void **a, void **b)
 {
-    int i;
+    void *temp;
 
-    i = queue->size++;
-    queue->nodes[i] = node;
-    while (i && queue->compare(queue->nodes[i], queue->nodes[(i - 1) / 2]) < 0)
-    {
-        swap_nodes(&queue->nodes[i], &queue->nodes[(i - 1) / 2]);
-        i = (i - 1) / 2;
-    }
+    temp = *a;
+    *a = *b;
+    *b = temp;
 }
-
-
 int compare_huffman_nodes(const void *a, const void *b)
 {
     const TreeNode *node_a = (const TreeNode *)a;
@@ -82,13 +74,4 @@ int compare_huffman_nodes(const void *a, const void *b)
     const HuffmanData *data_a = (const HuffmanData *)node_a->data;
     const HuffmanData *data_b = (const HuffmanData *)node_b->data;
     return data_a->frequency - data_b->frequency;
-}
-
-void free_priority_queue(PriorityQueue *queue)
-{
-    if (!queue)
-		return ;
-
-    free(queue->nodes);
-    free(queue);
 }
