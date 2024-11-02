@@ -23,9 +23,16 @@ vpath %.c $(SRC_DIRS)
 ################################################################################
 
 SRCS :=	src/main.c \
-       	src/huffman/huffman_decode.c \
-		src/huffman/huffman_tree.c \
-		src/huffman/huffman.c \
+       	src/huffman/count_frequencies.c \
+		src/huffman/decompress_data.c \
+		src/huffman/free_code_table.c \
+		src/huffman/generate_codes.c \
+		src/huffman/huffman_compress.c \
+		src/huffman/huffman_decompress.c \
+		src/huffman/huffman_tree_utils_1.c \
+		src/huffman/huffman_tree_utils_2.c \
+		src/huffman/write_compressed_data.c \
+		src/huffman/write_huffman_tree.c \
        	src/rle/rle.c \
        	src/file_io/file_io.c \
        	src/utils/utils.c \
@@ -90,6 +97,8 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C libft fclean
+	$(RM) $(TEST_OUTPUT_DIR)/*
+	rm -f $(TEST_OBJS) $(TEST_NAME)
 
 re: fclean submodule_update all
 
