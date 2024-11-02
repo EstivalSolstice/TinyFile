@@ -52,8 +52,8 @@ tiny_file.exe/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/EstivalSolstice/TinyFile.git
-   cd tiny_file.exe
+   git clone https://github.com/EstivalSolstice/TinyFile.git <name>
+   cd <name>
 
 2. **Initialize Submodules**:
    ```bash
