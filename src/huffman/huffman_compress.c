@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   huffman_compress.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joltmann <joltmann@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 04:09:33 by joltmann          #+#    #+#             */
-/*   Updated: 2024/11/02 04:16:33 by joltmann         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "huffman.h"
 
 static int	open_input_file(const char *input_file, char **text, long *length)
@@ -40,22 +28,21 @@ static int	open_input_file(const char *input_file, char **text, long *length)
 	return (fclose(input), 1);
 }
 
-static int	build_huffman_codes(char *text, char **code_table,
-		HuffmanNode **root)
+static int build_huffman_codes(char *text, char **code_table, TreeNode **root)
 {
-	int		frequency_table[256];
-	char	code_buffer[256];
+    int frequency_table[256];
+    char code_buffer[256];
 
-	memset(frequency_table, 0, sizeof(frequency_table));
-	count_frequencies(text, frequency_table);
-	*root = build_huffman_tree(frequency_table);
-	if (*root == NULL)
-	{
-		fprintf(stderr, "Failed to build Huffman tree.\n");
-		return (0);
-	}
-	generate_codes(*root, code_buffer, 0, code_table);
-	return (1);
+    memset(frequency_table, 0, sizeof(frequency_table));
+    count_frequencies(text, frequency_table);
+    *root = build_huffman_tree(frequency_table);
+    if (*root == NULL)
+    {
+        fprintf(stderr, "Failed to build Huffman tree.\n");
+        return (0);
+    }
+    generate_codes(*root, code_buffer, 0, code_table);
+    return (1);
 }
 
 static int	open_output_file(const char *output_file, FILE **output)
@@ -69,39 +56,42 @@ static int	open_output_file(const char *output_file, FILE **output)
 	return (1);
 }
 
-static void	cleanup_compression(char *text, HuffmanNode *root,
-		char **code_table)
-{
-	free(text);
-	free_code_table(code_table);
-	free_huffman_tree(root);
-}
+// static void	cleanup_compression(char *text, HuffmanNode *root,
+// 		char **code_table)
+// {
+// 	free(text);
+// 	free_code_table(code_table);
+// 	free_huffman_tree(root);
+// }
 
-void	huffman_compress(const char *input_file, const char *output_file)
-{
-	char		*text;
-	long		length;
-	char		*code_table[256];
-	HuffmanNode	*root;
-	FILE		*output;
-	int			valid_bits;
+void huffman_compress(const char *input_file, const char *output_file) {
+    char *text;
+    long length;
+    char *code_table[256] = {0};
+    TreeNode *root;
+    FILE *output;
+    int valid_bits;
 
-	if (!open_input_file(input_file, &text, &length))
-		return ;
-	memset(code_table, 0, sizeof(code_table));
-	if (!build_huffman_codes(text, code_table, &root))
-	{
-		free(text);
-		return ;
-	}
-	if (!open_output_file(output_file, &output))
-	{
-		cleanup_compression(text, root, code_table);
-		return ;
-	}
-	write_huffman_tree(output, root);
-	write_compressed_data(output, text, length, code_table, &valid_bits);
-	fputc(valid_bits, output);
-	fclose(output);
-	cleanup_compression(text, root, code_table);
+    if (!open_input_file(input_file, &text, &length))
+        return;
+    int frequency_table[256];
+    count_frequencies(text, frequency_table);
+    root = build_huffman_tree(frequency_table);
+    if (root == NULL) {
+        free(text);
+        return;
+    }
+    char code_buffer[256];
+    generate_codes(root, code_buffer, 0, code_table);
+    output = fopen(output_file, "wb");
+    if (output == NULL) {
+        perror("Failed to open output file");
+        cleanup_compression(text, root, code_table);
+        return;
+    }
+    write_huffman_tree(output, root);
+    write_compressed_data(output, text, length, code_table, &valid_bits);
+    fputc(valid_bits, output);
+    fclose(output);
+    cleanup_compression(text, root, code_table);
 }

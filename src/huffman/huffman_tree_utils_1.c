@@ -1,87 +1,91 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   huffman_tree_utils_1.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joltmann <joltmann@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 04:09:42 by joltmann          #+#    #+#             */
-/*   Updated: 2024/11/02 04:30:35 by joltmann         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "huffman.h"
 
-HuffmanNode	*create_node(char character, int frequency)
-{
-	HuffmanNode	*node;
+TreeNode *create_tree_node(void *data) {
+    TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
+    if (node == NULL) {
+        perror("Failed to allocate memory for TreeNode");
+        exit(EXIT_FAILURE);
+    }
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
 
-	node = (HuffmanNode *)malloc(sizeof(HuffmanNode));
-	if (node == NULL)
-	{
-		perror("Failed to allocate memory for HuffmanNode");
-		exit(EXIT_FAILURE);
-	}
-	node->character = character;
-	node->frequency = frequency;
-	node->left = NULL;
-	node->right = NULL;
-	return (node);
+PriorityQueue *create_priority_queue(int capacity, int (*compare)(const void *, const void *)) {
+    PriorityQueue *queue = (PriorityQueue *)malloc(sizeof(PriorityQueue));
+    if (queue == NULL) {
+        perror("Failed to allocate memory for PriorityQueue");
+        exit(EXIT_FAILURE);
+    }
+    queue->nodes = (void **)malloc(capacity * sizeof(void *));
+    if (queue->nodes == NULL) {
+        perror("Failed to allocate memory for PriorityQueue nodes");
+        free(queue);
+        exit(EXIT_FAILURE);
+    }
+    queue->size = 0;
+    queue->capacity = capacity;
+    queue->compare = compare;
+    return queue;
 }
 
 
-PriorityQueue	*create_priority_queue(int capacity)
+void swap_nodes(void **a, void **b)
 {
-	PriorityQueue	*queue;
+    void *temp;
 
-	queue = (PriorityQueue *)malloc(sizeof(PriorityQueue));
-	queue->nodes = (HuffmanNode **)malloc(capacity * sizeof(HuffmanNode *));
-	queue->size = 0;
-	queue->capacity = capacity;
-	return (queue);
+    temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-void	swap_nodes(HuffmanNode **a, HuffmanNode **b)
+void heapify(PriorityQueue *queue, int index)
 {
-	HuffmanNode	*temp;
+    int smallest;
+    int left;
+    int right;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
+    smallest = index;
+    left = 2 * index + 1;
+    right = 2 * index + 2;
+
+    if (left < queue->size && queue->compare(queue->nodes[left], queue->nodes[smallest]) < 0)
+        smallest = left;
+    if (right < queue->size && queue->compare(queue->nodes[right], queue->nodes[smallest]) < 0)
+        smallest = right;
+    if (smallest != index)
+    {
+        swap_nodes(&queue->nodes[smallest], &queue->nodes[index]);
+        heapify(queue, smallest);
+    }
 }
 
-void	heapify(PriorityQueue *queue, int index)
+void insert_node(PriorityQueue *queue, void *node)
 {
-	int	smallest;
-	int	left;
-	int	right;
+    int i;
 
-	smallest = index;
-	left = 2 * index + 1;
-	right = 2 * index + 2;
-	if (left < queue->size
-		&& queue->nodes[left]->frequency < queue->nodes[smallest]->frequency)
-		smallest = left;
-	if (right < queue->size
-		&& queue->nodes[right]->frequency < queue->nodes[smallest]->frequency)
-		smallest = right;
-	if (smallest != index)
-	{
-		swap_nodes(&queue->nodes[smallest], &queue->nodes[index]);
-		heapify(queue, smallest);
-	}
+    i = queue->size++;
+    queue->nodes[i] = node;
+    while (i && queue->compare(queue->nodes[i], queue->nodes[(i - 1) / 2]) < 0)
+    {
+        swap_nodes(&queue->nodes[i], &queue->nodes[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
 }
 
-void	insert_node(PriorityQueue *queue, HuffmanNode *node)
-{
-	int	i;
 
-	i = queue->size++;
-	queue->nodes[i] = node;
-	while (i && queue->nodes[i]->frequency < queue->nodes[(i - 1)
-			/ 2]->frequency)
-	{
-		swap_nodes(&queue->nodes[i], &queue->nodes[(i - 1) / 2]);
-		i = (i - 1) / 2;
-	}
+int compare_huffman_nodes(const void *a, const void *b) {
+    const TreeNode *node_a = (const TreeNode *)a;
+    const TreeNode *node_b = (const TreeNode *)b;
+    const HuffmanData *data_a = (const HuffmanData *)node_a->data;
+    const HuffmanData *data_b = (const HuffmanData *)node_b->data;
+    return data_a->frequency - data_b->frequency;
+}
+
+void free_priority_queue(PriorityQueue *queue) {
+    if (!queue) return;
+
+    free(queue->nodes);
+    free(queue);
 }
