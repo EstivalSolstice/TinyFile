@@ -1,0 +1,12 @@
+# Ignore VS Code directories and settings files
+.vscode/
+.vscode/*
+*.code-workspace
+
+# Ignore object files in the main project
+_obj/
+_obj/*
+
+# Ignore object files in the libft subdirectory
+libft/_obj/
+libft/_obj/*
